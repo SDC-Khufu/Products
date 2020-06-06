@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: products
+    volumes:
+      - productsdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  server: 
+    build: ./
+    ports:
+      - '8080:3000'
+    depends_on:
+      - db
+
+volumes:
+  productsdata:
