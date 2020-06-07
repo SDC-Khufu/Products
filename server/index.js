@@ -23,7 +23,7 @@ app.get('/http://18.224.20.58:80/products/:productId', (req, res) => {
     })
 })
 
-app.get('/products/:productId/styles', (req, res) => {
+app.get('/http://18.224.20.58:80/products/:productId/styles', (req, res) => {
     const productId = req.params.productId + ''
     models.getStyles(productId, (err, db1Res, db2Res, productId) => {
         if (err) {
