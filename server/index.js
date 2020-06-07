@@ -9,7 +9,7 @@ const port = 3000
 app.use(bodyParser.json())
 // app.use(morgan('dev'))
 
-app.get('/http://18.224.20.58/products/:productId', (req, res) => {
+app.get('/http://18.224.20.58:80/products/:productId', (req, res) => {
     const productId = req.params.productId
     models.getProducts(productId, (err, dbRes) => {
         if (err) {
