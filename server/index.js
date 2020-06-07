@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser")
 const app = express();
-const models = require('./models')
-const morgan = require('morgan')
+// const models = require('./models')
+// const morgan = require('morgan')
+const models = require('./db')
 
 const port = 3000
 app.use(bodyParser.json())
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 app.get('/products/:productId', (req, res) => {
     const productId = req.params.productId
@@ -15,9 +16,9 @@ app.get('/products/:productId', (req, res) => {
             res.status(400)
             res.send("error getting styles")
         } else {
-            const features = dbRes.rows[0].features.features
-            dbRes.rows[0].features = features
-            res.send(dbRes.rows[0])
+            const features = dbRes.features.features
+            dbRes.features = features
+            res.send(dbRes)
         }
     })
 })
@@ -31,9 +32,9 @@ app.get('/products/:productId/styles', (req, res) => {
         } else {
             let obj = {}
             obj.product_id = productId
-            let photoArray = db2Res.rows[0].json_build_object.photos
-            let addPhotos = db1Res.rows
-            addPhotos.forEach(style => {
+            let photoArray = db2Res[0].json_build_object.photos
+            let addPhotosToStyles = db1Res
+            addPhotosToStyles.forEach(style => {
                 delete style.skus.style_id
                 let photoArrayToAdd = []
                 if (photoArray !== null) {
@@ -48,8 +49,7 @@ app.get('/products/:productId/styles', (req, res) => {
                     style.photos = [{ "thumbnail_url": null, "url": null}]
                 }
             })
-            
-            obj.results = addPhotos
+            obj.results = addPhotosToStyles
             res.send(obj)
         }
     })
@@ -62,22 +62,10 @@ app.get('/products/:productId/related', (req, res) => {
             res.status(400)
             res.send("error getting related")
         } else {
-            res.send(dbRes.rows[0].related_products.related)
+            res.send(dbRes.related_products.related)
         }
     })
 })
 
-app.get('/photos/:styleId', (req, res) => {
-    const styleId = req.params.styleId
-    models.getPhotos(styleId, (err, dbRes) => {
-        if (err) {
-            res.status(400)
-            res.send('error getting photos')
-
-        } else {
-            res.send(dbRes.rows[0].json_agg)
-        }
-    })
-})
     
     app.listen(port, () => console.log(`listening on port ${port}`))
