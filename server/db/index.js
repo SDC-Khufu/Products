@@ -5,7 +5,7 @@ const db = pgp({
     user: 'postgres',
     host: 'khufu_db_1',
     database: 'products',
-    password: DB_PASSWORD,
+    password: 'postgres',
     port: 5432,
 })
 

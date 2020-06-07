@@ -5,7 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "${DB_PW}"
+      POSTGRES_PASSWORD: 'postgres'
       POSTGRES_DB: products
     volumes:
       - productsdata:/var/lib/postgresql/data
