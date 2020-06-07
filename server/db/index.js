@@ -1,4 +1,4 @@
-const { DB_PASSWORD } = require('../../config.js')
+// const { DB_PASSWORD } = require('../../config.js')
 const pgp = require('pg-promise')(/*options*/)
 
 const db = pgp({
