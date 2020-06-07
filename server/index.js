@@ -55,7 +55,7 @@ app.get('/http://18.224.20.58:80/products/:productId/styles', (req, res) => {
     })
 })
 
-app.get('/products/:productId/related', (req, res) => {
+app.get('/http://18.224.20.58:80/products/:productId/related', (req, res) => {
     const productId = req.params.productId
     models.getRelated(productId, (err, dbRes) => {
         if (err) {
