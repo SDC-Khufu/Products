@@ -1,15 +1,11 @@
 const express = require('express');
 const bodyParser = require("body-parser")
 const app = express();
-// const models = require('./models')
-// const morgan = require('morgan')
 const models = require('./db')
-
 const port = 3000
 app.use(bodyParser.json())
-// app.use(morgan('dev'))
 
-app.get('/http://18.224.20.58:80/products/:productId', (req, res) => {
+app.get('/products/:productId', (req, res) => {
     const productId = req.params.productId
     models.getProducts(productId, (err, dbRes) => {
         if (err) {
@@ -23,7 +19,7 @@ app.get('/http://18.224.20.58:80/products/:productId', (req, res) => {
     })
 })
 
-app.get('/http://18.224.20.58:80/products/:productId/styles', (req, res) => {
+app.get('/products/:productId/styles', (req, res) => {
     const productId = req.params.productId + ''
     models.getStyles(productId, (err, db1Res, db2Res, productId) => {
         if (err) {
@@ -55,7 +51,7 @@ app.get('/http://18.224.20.58:80/products/:productId/styles', (req, res) => {
     })
 })
 
-app.get('/http://18.224.20.58:80/products/:productId/related', (req, res) => {
+app.get('/products/:productId/related', (req, res) => {
     const productId = req.params.productId
     models.getRelated(productId, (err, dbRes) => {
         if (err) {
@@ -67,5 +63,4 @@ app.get('/http://18.224.20.58:80/products/:productId/related', (req, res) => {
     })
 })
 
-    
-    app.listen(port, () => console.log(`listening on port ${port}`))
+app.listen(port, () => console.log(`listening on port ${port}`))

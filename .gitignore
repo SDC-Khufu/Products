@@ -2,4 +2,3 @@ products
 node_modules
 package-lock.json
 config.js
-my.env
